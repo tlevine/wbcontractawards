@@ -1,6 +1,7 @@
+import re
+
 from lxml.html import fromstring
 import pyparsing as p
-
 
 def search(response):
     html = fromstring(response.text)
@@ -19,10 +20,11 @@ def _contract_parser():
     return p.ZeroOrMore(parser)
 
 def contract(response):
-    html = fromstring(response.text)
-    text = html.xpath('//div[@class="prc_notice"]')[0].text_content()
+    html = fromstring(re.sub(r'<br', '\n<br', response.text, flags = re.IGNORECASE))
+    text = html.xpath('//div[@class="prc_notice"]')[0].text_content().strip()
+    return text
     parser = _contract_parser()
-    matches = parser.parseString(response.text)
+    matches = parser.parseString(text)
     print(matches)
    #if len(matches) > 0:
    #    return [{'status':status, 'name': name} for status, name in zip(matches[0::2], matches[1::2])]
