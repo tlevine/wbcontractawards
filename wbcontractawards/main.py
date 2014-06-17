@@ -14,6 +14,6 @@ def contracts():
             yield p.contract(response)
 
 def cli():
-    import sys
-    for contract in contracts:
+    import sys, json
+    for contract in contracts():
         sys.stdout.write(json.dumps(contract) + '\n')
