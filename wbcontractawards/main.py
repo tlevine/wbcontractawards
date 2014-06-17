@@ -12,3 +12,8 @@ def contracts():
         for url in contract_urls:
             response = d.get(url)
             yield p.contract(response)
+
+def cli():
+    import sys
+    for contract in contracts:
+        sys.stdout.write(json.dumps(contract) + '\n')
