@@ -10,7 +10,8 @@ def search(response):
 def _contract_parser():
     status = p.oneOf(['awarded','evaluated','rejected'], caseless = True)
     bidder = p.Suppress(p.CaselessLiteral('bidder'))
-    name = p.Suppress(p.SkipTo(p.Word('Name'))) + p.Suppress(p.Word('Name: '))+ p.SkipTo(p.oneOf('\n','<','\r']))
+    to_newline = p.SkipTo(p.oneOf(['\n','<','\r']))
+    name = p.Suppress(p.SkipTo(p.Word('Name'))) + p.Suppress(p.Word('Name: ')) + to_newline
     parser = p.Suppress(p.SkipTo(status)) + status + bidder + name
     return p.ZeroOrMore(parser)
 
@@ -18,5 +19,6 @@ def contract(response):
     html = fromstring(response.text)
     text = html.xpath('//div[@class="prc_notice"]')[0].text_content()
     parser = _contract_parser()
-    matches, _ = parser.parseString(response.text)
-    return [{'status':status, 'name': name} for status, name in zip(matches[0::2], matches[1::2])]
+    matches = parser.parseString(response.text)
+    if len(matches) > 0:
+        return [{'status':status, 'name': name} for status, name in zip(matches[0::2], matches[1::2])]
