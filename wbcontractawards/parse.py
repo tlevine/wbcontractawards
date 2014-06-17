@@ -6,3 +6,5 @@ def search(response):
     return map(str, html.xpath("//ol[@id='search-results']/li/h3/a/@href"))
 
 def contract(response):
+    html = fromstring(response.text)
+    html.make_links_absolute(response.url)

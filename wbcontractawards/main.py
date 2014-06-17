@@ -6,6 +6,9 @@ import wbcontractawards.parse as p
 def contracts():
     for os in itertools.count(0, 10):
         response = d.search(os)
-        for url in p.search(response):
+        contract_urls = p.search(response)
+        if [] == contract_urls:
+            break
+        for url in contract_urls:
             response = d.get(url)
             yield p.contract(response)
