@@ -8,7 +8,7 @@ def search(response):
     html.make_links_absolute(response.url)
     return map(str, html.xpath("//ol[@id='search-results']/li/h3/a/@href"))
 
-def contract(response):
+def bidders(response):
     html = fromstring(re.sub(r'<', '\n<', response.text, flags = re.IGNORECASE))
     text = html.xpath('//div[@class="prc_notice"]')[0].text_content().strip()
     bidder = None
@@ -21,3 +21,14 @@ def contract(response):
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
                 bidder[m.group(1).lower()] = m.group(2)
+
+def clean_bidder(bidder):
+    remap = { 'opening': 'opening.price', 'name': 'company.name',
+              'status': 'status', 'country': 'country', }
+    out = {}
+    for key, value in bidder.items():
+        for old, new in remap.items():
+            if old in key:
+                out[new] = value
+                break
+    return out
