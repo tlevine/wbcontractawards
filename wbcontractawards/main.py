@@ -16,4 +16,5 @@ def contracts():
 def cli():
     import sys, json
     for contract in contracts():
-        sys.stdout.write(json.dumps(contract) + '\n')
+        if contract != None:
+            sys.stdout.write(json.dumps(contract) + '\n')
