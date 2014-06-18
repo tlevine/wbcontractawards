@@ -45,4 +45,4 @@ def money(raw):
     return currency, amount
 
 def contract(response):
-    return list(map(p.clean_bidder, p.bidders(response)))
+    return list(map(clean_bidder, bidders(response)))
