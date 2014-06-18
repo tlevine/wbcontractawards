@@ -17,6 +17,7 @@ expected = [
     },
     {
         'status': 'Rejected',
+        'name': 'EDH - TMD Bidder Joint Venture',
         'address': ' ',
         'reason for rejection': ' Non Responsive',
         'bid price at opening': 'VND 50,944,928,551.00 ',
