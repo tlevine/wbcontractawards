@@ -43,3 +43,6 @@ def money(raw):
     else:
         currency = amount = None
     return currency, amount
+
+def contract(response):
+    return list(map(p.clean_bidder, p.bidders(response)))
