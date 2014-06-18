@@ -1,3 +1,7 @@
+import os
+
+import nose.tools as n
+
 import wbcontractawards.parse as p
 
 def test_OP00027656():
