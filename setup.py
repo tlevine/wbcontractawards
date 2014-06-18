@@ -8,6 +8,7 @@ setup(name='wbcontractawards',
       packages=['wbcontractawards'],
       install_requires = ['lxml','picklecache','requests'],
       tests_require = ['nose'],
-      version='0.0.1',
+      scripts = ['bin/wbcontractawards'],
+      version='0.0.2',
       license='AGPL',
 )
