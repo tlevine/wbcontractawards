@@ -1,4 +1,5 @@
-import sys, json
+import sys
+import csv
 import itertools
 
 import wbcontractawards.download as d
@@ -19,6 +20,16 @@ def contracts():
                 raise
 
 def cli():
+    writer = csv.writer(sys.stdout)
+    writer.writerow(['contract','bidder','amount','currency'])
     for contract in contracts():
         if contract != None:
-            sys.stdout.write(json.dumps(contract) + '\n')
+            for bid in contract['bids']:
+                row = [
+                    contract['url'],
+                    bid.get('name'),
+                    bid.get('status'),
+                    bid.get('opening.price.amount'),
+                    bid.get('opening.price.currency'),
+                ]
+                writer.writerow(row)
