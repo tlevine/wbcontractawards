@@ -1,7 +1,6 @@
 import re
 
 from lxml.html import fromstring
-import pyparsing as p
 
 def search(response):
     html = fromstring(response.text)
