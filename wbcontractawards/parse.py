@@ -8,11 +8,13 @@ def search(response):
     html.make_links_absolute(response.url)
     return map(str, html.xpath("//ol[@id='search-results']/li/h3/a/@href"))
 
-def bidders(response):
+def prc_notice(response):
     html = fromstring(re.sub(r'<', '\n<', response.text, flags = re.IGNORECASE))
-    text = html.xpath('//div[@class="prc_notice"]')[0].text_content().strip()
+    return html.xpath('//div[@class="prc_notice"]')[0].text_content().strip()
+
+def bidders(prc_notice_text):
     bidder = None
-    for line in text.split('\n'):
+    for line in prc_notice_text.split('\n'):
         if re.search(r'bidder', line, flags = re.IGNORECASE):
             if bidder != None:
                 yield bidder
@@ -21,6 +23,7 @@ def bidders(response):
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
                 bidder[m.group(1).lower()] = m.group(2)
+    yield bidder
 
 def clean_bidder(bidder):
     remap = { 'opening': 'opening.price.raw', 'name': 'company.name',
@@ -45,4 +48,4 @@ def money(raw):
     return currency, amount
 
 def contract(response):
-    return list(map(clean_bidder, bidders(response)))
+    return list(map(clean_bidder, bidders(prc_notice(response))))
