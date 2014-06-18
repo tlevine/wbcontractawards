@@ -18,7 +18,7 @@ def bidders(prc_notice_text):
         if re.search(r'bidder', line, flags = re.IGNORECASE):
             if bidder != None:
                 yield bidder
-            bidder = {'status': re.match(r'^([a-z]+) ', line, flags = re.IGNORECASE).group(1)}
+            bidder = {'status': re.match(r'^([a-z]+).*$', line, flags = re.IGNORECASE).group(1)}
         elif bidder != None:
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
