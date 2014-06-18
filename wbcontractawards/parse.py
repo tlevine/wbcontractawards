@@ -15,10 +15,11 @@ def prc_notice(response):
 def bidders(prc_notice_text):
     bidder = None
     for line in prc_notice_text.split('\n'):
-        if re.search(r'bidder', line, flags = re.IGNORECASE):
+        if re.match(r'(awarded|evaluated|rejected).*bidder', line, flags = re.IGNORECASE):
             if bidder != None:
                 yield bidder
-            bidder = {'status': re.match(r'^([a-z]+).*$', line, flags = re.IGNORECASE).group(1)}
+            m = re.match(r'^([a-z]+).*$', line, flags = re.IGNORECASE)
+            bidder = {'status': m.group(1)}
         elif bidder != None:
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
