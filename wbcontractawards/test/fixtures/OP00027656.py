@@ -1,4 +1,4 @@
-observed = [
+expected = [
     {
         'contract price': ' VND42,882,861,177.00',
         'address': ' ',
@@ -16,7 +16,7 @@ observed = [
         'name ': ' LS Vina Industrial System'
     },
     {
-        'status': 'Rejected'
+        'status': 'Rejected',
         'address': ' ',
         'reason for rejection': ' Non Responsive',
         'bid price at opening': 'VND 50,944,928,551.00 ',
