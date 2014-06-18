@@ -1,3 +1,4 @@
+import sys, json
 import itertools
 
 import wbcontractawards.download as d
@@ -11,10 +12,13 @@ def contracts():
             break
         for url in contract_urls:
             response = d.get(url)
-            yield p.contract(response)
+            try:
+                yield p.contract(response)
+            except:
+                sys.stderr.write('Error at %s\n' % url)
+                raise
 
 def cli():
-    import sys, json
     for contract in contracts():
         if contract != None:
             sys.stdout.write(json.dumps(contract) + '\n')
