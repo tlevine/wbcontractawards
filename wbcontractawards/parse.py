@@ -28,7 +28,7 @@ def bidders(prc_notice_text):
         yield bidder
 
 def clean_bidder(bidder):
-    remap = { 'opening': 'opening.price.raw', 'name': 'company.name',
+    remap = { 'opening': 'opening.price.raw', 'name': 'bidder.name',
               'status': 'status', 'country': 'country', }
     out = {}
     for key, value in bidder.items():
@@ -50,4 +50,7 @@ def money(raw):
     return currency, amount
 
 def contract(response):
-    return list(map(clean_bidder, bidders(prc_notice(response))))
+    return {
+        'url': response.url,
+        'bids': list(map(clean_bidder, bidders(prc_notice(response))))
+    }

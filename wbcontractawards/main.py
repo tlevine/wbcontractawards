@@ -27,7 +27,7 @@ def cli():
             for bid in contract['bids']:
                 row = [
                     contract['url'],
-                    bid.get('name'),
+                    bid.get('bidder.name'),
                     bid.get('status'),
                     bid.get('opening.price.amount'),
                     bid.get('opening.price.currency'),
