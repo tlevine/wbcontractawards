@@ -21,7 +21,7 @@ def contracts():
 
 def cli():
     writer = csv.writer(sys.stdout)
-    writer.writerow(['contract','bidder','amount','currency'])
+    writer.writerow(['contract','bidder','status','amount','currency'])
     for contract in contracts():
         if contract != None:
             for bid in contract['bids']:
