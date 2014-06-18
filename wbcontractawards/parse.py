@@ -23,7 +23,7 @@ def bidders(response):
                 bidder[m.group(1).lower()] = m.group(2)
 
 def clean_bidder(bidder):
-    remap = { 'opening': 'opening.price', 'name': 'company.name',
+    remap = { 'opening': 'opening.price.raw', 'name': 'company.name',
               'status': 'status', 'country': 'country', }
     out = {}
     for key, value in bidder.items():
@@ -31,4 +31,15 @@ def clean_bidder(bidder):
             if old in key:
                 out[new] = value
                 break
+    out['opening.price.currency'], out['opening.price.amount'] = money(out.get('opening.price.raw',''))
     return out
+
+def money(raw):
+    'If there are multiple amounts in different currencies, take the first one.'
+    match = re.match(r'^[^A-Z]*([A-Z]{3})[^0-9]*([0-9,]+)[^0-9,]*', raw)
+    if match:
+        currency = match.group(1)
+        amount = float(match.group(2).replace(',',''))
+    else:
+        currency = amount = None
+    return currency, amount
