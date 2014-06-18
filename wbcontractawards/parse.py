@@ -23,7 +23,7 @@ def bidders(prc_notice_text):
         elif bidder != None:
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
-                bidder[m.group(1).lower()] = m.group(2)
+                bidder[m.group(1).lower()] = m.group(2).strip()
     yield bidder
 
 def clean_bidder(bidder):
