@@ -24,7 +24,8 @@ def bidders(prc_notice_text):
             m = re.match(r'( *[^:]+ *):( *[^:]+ *)', line)
             if m:
                 bidder[m.group(1).lower()] = m.group(2).strip()
-    yield bidder
+    if bidder != None:
+        yield bidder
 
 def clean_bidder(bidder):
     remap = { 'opening': 'opening.price.raw', 'name': 'company.name',
