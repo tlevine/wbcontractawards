@@ -49,7 +49,22 @@ def money(raw):
     return currency, amount
 
 def contract(response):
-    return {
+    prc = prc_notice(response)
+    row = {
         'url': response.url,
-        'bids': list(map(clean_bidder, bidders(prc_notice(response))))
+        'bids': list(map(clean_bidder, bidders(prc))),
     }
+    row.update(methods(prc))
+
+def methods(prc):
+    procure = re.compile(r'^method.*procurement: (.+)$', flags = re.IGNORECASE)
+    select =  re.compile(r'^method.*selection: (.+)$', flags = re.IGNORECASE)
+    out = {}
+    for line in prc.split('\n'):
+        m = re.match(procure, line)
+        if m:
+            out['method.procurement'] = m.group(1)
+        m = re.match(select, line)
+        if m:
+            out['method.selection'] = m.group(1)
+    return out
