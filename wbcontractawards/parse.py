@@ -55,6 +55,7 @@ def contract(response):
         'bids': list(map(clean_bidder, bidders(prc))),
     }
     row.update(methods(prc))
+    return row
 
 def methods(prc):
     procure = re.compile(r'^method.*procurement: (.+)$', flags = re.IGNORECASE)
