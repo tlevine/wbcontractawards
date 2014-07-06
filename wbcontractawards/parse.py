@@ -78,4 +78,6 @@ def project(text):
         return m.group(1)
 
 def contract_price(prc):
-    return 'AMD'
+    m = re.search(r'Price: *([A-Z]{3} *[0-9,.]+)', prc)
+    if m:
+        return m.group(1)
