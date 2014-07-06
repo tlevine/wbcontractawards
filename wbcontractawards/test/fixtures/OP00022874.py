@@ -1,0 +1,2 @@
+prc = 'ICB Contract Award NoticeKenyaProject: P107314 - Nairobi Metropolitan Services Improvement ProjectBid/Contract Reference No: MoNMED /NaMSIP/WK-05/2012-2013Scope of Contract: CONSTRUCTION OF RUIRU SEWERAGE WORKSDuration of Contract: 24Month(s)Contract Signature Date: Evaluation Currency: KES-Kenya ShillingsAwarded Bidder(s):Name: Sinohydro Corporation Ltd.Address: P.O. Box 24446Country: KenyaBid Price at Opening:KES 1,998,611,755.38 Evaluated Bid Price: KES2,042,479,777.00Contract Price: KES2,042,479,777.00'
+project = 'P107314'
