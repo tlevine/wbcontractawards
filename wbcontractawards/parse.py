@@ -51,11 +51,12 @@ def money(raw):
 def contract(response):
     prc = prc_notice(response)
     row = {
-        'url': response.url,
+        'contract': response.url,
         'bids': list(map(clean_bidder, bidders(prc))),
     }
     row.update(methods(prc))
     row['project'] = project(prc)
+    row['price'] = contract_price(prc)
     return row
 
 def methods(prc):

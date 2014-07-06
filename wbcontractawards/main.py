@@ -29,28 +29,22 @@ def bids():
 def contract_splits():
     for contract in contracts():
         contract['n.bids'] = len(contract['bids'])
-        
+        del(contract['bids'])
+        yield contract
 
 def cli(unit):
-    writer = csv.writer(sys.stdout)
-
-    if unit == 'bids':
-        writer.writerow(['project','contract','bidder','status','amount','currency'])
-        for bid in bidders():
-            row = [
-                bid.get('project'),
-                bid['url'],
-                bid.get('bidder.name'),
-                bid.get('status'),
-                bid.get('opening.price.amount'),
-                bid.get('opening.price.currency'),
-            ]
-            writer.writerow(row)
-    elif unit == 'contracts':
-        writer.writerow(['project','contract',])
-        for contract in contract_splits():
-            row = [
-                contract.get('project'),
-                contract['url'],
-            ]
-            writer.writerow(row)
+    fieldnames = {
+        'bids': ['project','contract','bidder','status','amount','currency'],
+        'contracts': [
+            'project', 'contract',
+            'method.procurement', 'method.selection',
+            'price', 'n.bids'
+        ],
+    }
+    generators = {
+        'bids': bids,
+        'contracts': contract_splits,
+    }
+    writer = csv.DictWriter(sys.stdout, fieldnames = fieldnames[unit])
+    for row in generators[unit]():
+        writer.writerow(row)
