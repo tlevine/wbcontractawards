@@ -21,3 +21,7 @@ Contract Signature Date: 18-Feb-2011
         'method.selection': 'QCBS - Quality And Cost-Based Selection',
     }
     n.assert_dict_equal(p.methods(prc), expected)
+
+def test_OP00016891():
+    from wbcontractawards.test.fixtures.OP00016891 import text, project
+    n.assert_equal(p.project(text), project)

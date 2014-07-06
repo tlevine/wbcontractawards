@@ -69,3 +69,6 @@ def methods(prc):
         if m:
             out['method.selection'] = m.group(1)
     return out
+
+def project(text):
+    return 'P'
