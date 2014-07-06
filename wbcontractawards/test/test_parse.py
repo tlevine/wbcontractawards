@@ -30,3 +30,7 @@ def test_OP00016891():
 def test_OP00022874():
     from wbcontractawards.test.fixtures.OP00022874 import prc, project
     n.assert_equal(p.project(prc), project)
+
+def test_OP00027579():
+    from wbcontractawards.test.fixtures.OP00027579 import prc, contract_price
+    n.assert_equal(p.contract_price(prc), contract_price)
