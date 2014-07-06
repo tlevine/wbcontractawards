@@ -71,4 +71,7 @@ def methods(prc):
     return out
 
 def project(text):
-    return 'P'
+    m = re.search(r'.*Project: +(P[0-9]{6}) .*', text)
+   #m = re.search(r'.*(P[0-9]{6}) .*', text)
+    if m:
+        return m.group(1)
