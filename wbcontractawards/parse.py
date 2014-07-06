@@ -55,6 +55,7 @@ def contract(response):
         'bids': list(map(clean_bidder, bidders(prc))),
     }
     row.update(methods(prc))
+    row['project'] = project(prc)
     return row
 
 def methods(prc):
