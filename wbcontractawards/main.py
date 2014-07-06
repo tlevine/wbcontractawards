@@ -21,13 +21,15 @@ def contracts():
 
 def cli():
     writer = csv.writer(sys.stdout)
-    writer.writerow(['project','contract','bidder','status','amount','currency'])
+    writer.writerow(['project','contract','method.procurement','method.selection','bidder','status','amount','currency'])
     for contract in contracts():
         if contract != None:
             for bid in contract['bids']:
                 row = [
                     contract.get('project'),
                     contract['url'],
+                    contract.get('method.procurement'),
+                    contract.get('method.selection'),
                     bid.get('bidder.name'),
                     bid.get('status'),
                     bid.get('opening.price.amount'),
