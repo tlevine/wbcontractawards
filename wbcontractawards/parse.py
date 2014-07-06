@@ -76,3 +76,6 @@ def project(text):
    #m = re.search(r'.*(P[0-9]{6}) .*', text)
     if m:
         return m.group(1)
+
+def contract_price(prc):
+    return 'AMD'

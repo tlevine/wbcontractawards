@@ -19,20 +19,38 @@ def contracts():
                 sys.stderr.write('Error at %s\n' % url)
                 raise
 
-def cli():
-    writer = csv.writer(sys.stdout)
-    writer.writerow(['project','contract','method.procurement','method.selection','bidder','status','amount','currency'])
+def bids():
     for contract in contracts():
         if contract != None:
             for bid in contract['bids']:
-                row = [
-                    contract.get('project'),
-                    contract['url'],
-                    contract.get('method.procurement'),
-                    contract.get('method.selection'),
-                    bid.get('bidder.name'),
-                    bid.get('status'),
-                    bid.get('opening.price.amount'),
-                    bid.get('opening.price.currency'),
-                ]
-                writer.writerow(row)
+                bid.update(contract)
+                yield bid
+
+def contract_splits():
+    for contract in contracts():
+        contract['n.bids'] = len(contract['bids'])
+        
+
+def cli(unit):
+    writer = csv.writer(sys.stdout)
+
+    if unit == 'bids':
+        writer.writerow(['project','contract','bidder','status','amount','currency'])
+        for bid in bidders():
+            row = [
+                bid.get('project'),
+                bid['url'],
+                bid.get('bidder.name'),
+                bid.get('status'),
+                bid.get('opening.price.amount'),
+                bid.get('opening.price.currency'),
+            ]
+            writer.writerow(row)
+    elif unit == 'contracts':
+        writer.writerow(['project','contract',])
+        for contract in contract_splits():
+            row = [
+                contract.get('project'),
+                contract['url'],
+            ]
+            writer.writerow(row)
