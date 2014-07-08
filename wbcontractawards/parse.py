@@ -56,7 +56,9 @@ def contract(response):
     }
     row.update(methods(prc))
     row['project'] = project(prc)
-    row['price'] = contract_price(prc)
+    p = contract_price(prc)
+    if p != None:
+        row['price.currency'], row['price.amount'] = money(p)
     return row
 
 def methods(prc):

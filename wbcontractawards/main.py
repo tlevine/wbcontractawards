@@ -38,7 +38,8 @@ def cli(unit):
         'contracts': [
             'project', 'contract',
             'method.procurement', 'method.selection',
-            'price', 'n.bids'
+            'price.amount', 'price.currency',
+            'n.bids',
         ],
     }
     generators = {
@@ -46,5 +47,6 @@ def cli(unit):
         'contracts': contract_splits,
     }
     writer = csv.DictWriter(sys.stdout, fieldnames = fieldnames[unit])
+    writer.writeheader()
     for row in generators[unit]():
         writer.writerow(row)
