@@ -25,6 +25,8 @@ def bids():
         if contract != None:
             for bid in contract['bids']:
                 bid.update(contract)
+                for key in ['bids', 'price.currency', 'price.amount']:
+                    del(bid[key])
                 yield bid
 
 def contract_splits():
@@ -41,7 +43,10 @@ def cli():
 
 def emit(stdout, unit):
     fieldnames = {
-        'bids': ['project','contract','bidder','status','amount','currency'],
+        'bids': [
+            'project','contract','bidder.name','status', 'country',
+            'opening.price.currency', 'opening.price.amount', 'opening.price.raw',
+         ],
         'contracts': [
             'project', 'contract',
             'method.procurement', 'method.selection',
