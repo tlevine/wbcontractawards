@@ -1,3 +1,4 @@
+import argparse
 import sys
 import csv
 import itertools
@@ -32,7 +33,13 @@ def contract_splits():
         del(contract['bids'])
         yield contract
 
-def cli(unit):
+parser = argparse.ArgumentParser('Get data about contracts for projects funded by the World Bank.')
+parser.add_argument(dest = 'unit', metavar = '[unit]', choices = ['bids', 'contracts'])
+
+def cli():
+    emit(sys.stdout, parser.parse_args().unit)
+
+def emit(stdout, unit):
     fieldnames = {
         'bids': ['project','contract','bidder','status','amount','currency'],
         'contracts': [
@@ -46,7 +53,7 @@ def cli(unit):
         'bids': bids,
         'contracts': contract_splits,
     }
-    writer = csv.DictWriter(sys.stdout, fieldnames = fieldnames[unit])
+    writer = csv.DictWriter(stdout, fieldnames = fieldnames[unit])
     writer.writeheader()
     for row in generators[unit]():
         writer.writerow(row)
