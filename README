@@ -1,0 +1,12 @@
+Get data about contracts for projects funded by the World Bank.
+
+Install like so. ::
+
+    pip3 install wbcontractawards
+
+Run like so to write a CSV to STDOUT. ::
+
+    wbcontractawards [-h] [bids|contracts]
+
+Specify "contracts" for a CSV where each row is a contract, and
+specify "bids" for a CSV where each row is a bid on a contract.
