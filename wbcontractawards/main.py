@@ -6,11 +6,15 @@ import itertools
 import wbcontractawards.download as d
 import wbcontractawards.parse as p
 
+import requests.exceptions
+
 def contracts():
     for os in itertools.count(0, 10):
         try:
             response = d.search(os)
         except ConnectionResetError:
+            continue
+        except requests.exceptions.ConnectionError:
             continue
         contract_urls = p.search(response)
         if [] == contract_urls:
