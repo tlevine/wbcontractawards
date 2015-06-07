@@ -33,7 +33,8 @@ def bids():
             for bid in contract['bids']:
                 bid.update(contract)
                 for key in ['bids', 'price.currency', 'price.amount']:
-                    del(bid[key])
+                    if key in bid:
+                        del(bid[key])
                 yield bid
 
 def contract_splits():
