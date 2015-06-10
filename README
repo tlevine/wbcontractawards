@@ -10,3 +10,8 @@ Run like so to write a CSV to STDOUT. ::
 
 Specify "contracts" for a CSV where each row is a contract, and
 specify "bids" for a CSV where each row is a bid on a contract.
+
+Ideas
+
+* Add support for other languages (Portugese in particular).
+* Get evaluated and contract prices.

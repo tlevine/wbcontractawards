@@ -27,8 +27,23 @@ def bidders(prc_notice_text):
         yield bidder
 
 def clean_bidder(bidder):
-    remap = { 'opening': 'opening.price.raw', 'name': 'bidder.name',
-              'status': 'status', 'country': 'country', }
+    remap = {
+        'name': 'bidder.name',
+        'nome': 'bidder.name',
+
+        'opening': 'opening.price.raw',
+        'abertura': 'opening.price.raw',
+
+        'evaluated': 'evaluated.price.raw',
+
+        'contract': 'contract.price.raw',
+        'contrato': 'contract.price.raw',
+
+        'status': 'status',
+        
+        'country': 'country',
+        'país': 'country',
+    }
     out = {}
     for key, value in bidder.items():
         for old, new in remap.items():
