@@ -32,9 +32,12 @@ def bids():
         if contract != None:
             for bid in contract['bids']:
                 bid.update(contract)
+
+                # Remove contract-level information
                 for key in ['bids', 'price.currency', 'price.amount']:
                     if key in bid:
                         del(bid[key])
+
                 yield bid
 
 def contract_splits():
@@ -54,6 +57,8 @@ def emit(stdout, unit):
         'bids': [
             'project','contract','bidder.name','status', 'country',
             'opening.price.currency', 'opening.price.amount', 'opening.price.raw',
+            'evaluated.price.currency', 'evaluated.price.amount', 'evaluated.price.raw',
+            'contract.price.currency', 'contract.price.amount', 'contract.price.raw',
          ],
         'contracts': [
             'project', 'contract',

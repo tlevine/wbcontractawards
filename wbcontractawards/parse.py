@@ -50,7 +50,11 @@ def clean_bidder(bidder):
             if old in key:
                 out[new] = value
                 break
-    out['opening.price.currency'], out['opening.price.amount'] = money(out.get('opening.price.raw',''))
+
+    for step in ['opening', 'evaluated', 'contract']:
+        out[step + '.price.currency'], out[step + '.price.amount'] = \
+            money(out.get(step + '.price.raw',''))
+
     return out
 
 def money(raw):
@@ -91,7 +95,6 @@ def methods(prc):
 
 def project(text):
     m = re.search(r'.*Project: +(P[0-9]{6}) .*', text)
-   #m = re.search(r'.*(P[0-9]{6}) .*', text)
     if m:
         return m.group(1)
 
