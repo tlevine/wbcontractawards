@@ -41,8 +41,8 @@ def clean_bidder(bidder):
 
         'status': 'status',
         
-        'country': 'country',
-        'país': 'country',
+        'country': 'bidder.country',
+        'país': 'bidder.country',
     }
     out = {}
     for key, value in bidder.items():
@@ -72,7 +72,7 @@ def contract(response):
     row = {
         'contract': response.url,
         'bids': list(map(clean_bidder, bidders(prc))),
-        'country': fromstring(response.content).xpath('//span[@class="headlbl"][contains(text(), "Country")]/following-sibling::text()')[0].strip(),
+        'contract.country': fromstring(response.content).xpath('//span[@class="headlbl"][contains(text(), "Country")]/following-sibling::text()')[0].strip(),
     }
     row.update(methods(prc))
     row['project'] = project(prc)

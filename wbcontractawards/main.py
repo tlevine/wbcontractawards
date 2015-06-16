@@ -55,13 +55,13 @@ def cli():
 def emit(stdout, unit):
     fieldnames = {
         'bids': [
-            'project','contract','bidder.name','status', 'country',
+            'project','contract','bidder.name','status', 'bidder.country',
             'opening.price.currency', 'opening.price.amount', 'opening.price.raw',
             'evaluated.price.currency', 'evaluated.price.amount', 'evaluated.price.raw',
             'contract.price.currency', 'contract.price.amount', 'contract.price.raw',
          ],
         'contracts': [
-            'project', 'contract', 'country',
+            'project', 'contract', 'contract.country',
             'method.procurement', 'method.selection',
             'price.amount', 'price.currency',
             'n.bids',
