@@ -61,7 +61,7 @@ def emit(stdout, unit):
             'contract.price.currency', 'contract.price.amount', 'contract.price.raw',
          ],
         'contracts': [
-            'project', 'contract',
+            'project', 'contract', 'country',
             'method.procurement', 'method.selection',
             'price.amount', 'price.currency',
             'n.bids',
