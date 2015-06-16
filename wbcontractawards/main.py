@@ -34,7 +34,7 @@ def bids():
                 bid.update(contract)
 
                 # Remove contract-level information
-                for key in ['bids', 'price.currency', 'price.amount']:
+                for key in ['bids', 'price.currency', 'price.amount', 'contract.country']:
                     if key in bid:
                         del(bid[key])
 
